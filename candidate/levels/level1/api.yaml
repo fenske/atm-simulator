@@ -1,0 +1,91 @@
+openapi: 3.0.0
+info:
+  title: ATM Simulator - Level 1
+  description: This API is responsible for handling balance changes for accounts. Safe request retries are supported for each endpoint.
+  version: 0.0.1
+components:
+  schemas:
+    Amount:
+      type: object
+      properties:
+        account_id:
+          type: string
+          format: uuid
+        amount:
+          type: integer
+      required:
+        - account_id
+        - amount
+    Balance:
+      type: object
+      properties:
+        account_id:
+          type: string
+          format: uuid
+        balance:
+          type: integer
+      required:
+        - account_id
+        - amount
+  examples:
+    PositiveAmount:
+      value:
+        account_id: '0afd02d3-6c59-46e7-b7bc-893c5e0b7ac2'
+        amount: 7
+    NegativeAmount:
+      value:
+        account_id: '5ae0ef78-e902-4c40-9f53-8cf910587312'
+        amount: -4
+    PositiveBalance:
+      value:
+        account_id: '0afd02d3-6c59-46e7-b7bc-893c5e0b7ac2'
+        balance: 10
+paths:
+  /amount:
+    post:
+      summary: Amends the balance of the associated account by accepting the amount that has to be applied.
+      parameters:
+        - in: header
+          name: Transaction-Id
+          schema:
+            type: string
+            format: uuid
+          example: 'cf479136-0a5b-42ad-a16c-26d9eda3b4aa'
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Amount'
+            examples:
+              PositiveAmount:
+                $ref: '#/components/examples/PositiveAmount'
+              NegativeAmount:
+                $ref: '#/components/examples/NegativeAmount'
+
+      responses:
+        '200':
+          description: OK
+  /balance/{account_id}:
+    get:
+      summary: Returns the current balance of the account.
+      parameters:
+        - name: account_id
+          in: path
+          required: true
+          description: Account ID
+          schema:
+            type: string
+            format: uuid
+          example: '5ba6e1b0-e3e7-483a-919a-a2fc17629a90'
+      responses:
+        '200':
+          description: The account balance.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Balance'
+              examples:
+                PositiveBalance:
+                  $ref: '#/components/examples/PositiveBalance'

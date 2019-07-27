@@ -1,0 +1,307 @@
+{
+	"info": {
+		"_postman_id": "026590ca-7e63-4d80-a4f5-d83cba40eb09",
+		"name": "ATM Simulator Fetch Transaction Details",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Submit amount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9910004c-5392-4061-974c-9f93de9e1dc2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Transaction-Id",
+						"value": "c5f47c2b-4382-4073-98b8-b60d876ad41e",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"account_id\": \"41878786-445f-439e-93e5-bc2eaac7753d\",\n\t\"amount\" : 7\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/amount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"amount"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit more amount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9910004c-5392-4061-974c-9f93de9e1dc2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Transaction-Id",
+						"type": "text",
+						"value": "af9b55b5-3399-4686-8acc-b19302cf7a78"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"account_id\": \"41878786-445f-439e-93e5-bc2eaac7753d\",\n\t\"amount\" : 8\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/amount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"amount"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit amount for another account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9910004c-5392-4061-974c-9f93de9e1dc2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Transaction-Id",
+						"type": "text",
+						"value": "38b0b32f-fff6-417f-be89-d5d3a33e615b"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"account_id\": \"fde26866-afd2-4fff-a969-b213fc92f639\",\n\t\"amount\" : 10\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/amount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"amount"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch transaction details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "04dd748e-6d94-440b-bac4-6b517ecacf91",
+						"exec": [
+							"pm.test(\"Transaction details are correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.account_id).to.eql(\"41878786-445f-439e-93e5-bc2eaac7753d\");",
+							"    pm.expect(jsonData.amount).to.eql(7);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/transaction/c5f47c2b-4382-4073-98b8-b60d876ad41e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"transaction",
+						"c5f47c2b-4382-4073-98b8-b60d876ad41e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch transaction details for more amount change",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "04dd748e-6d94-440b-bac4-6b517ecacf91",
+						"exec": [
+							"pm.test(\"Transaction details are correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.account_id).to.eql(\"41878786-445f-439e-93e5-bc2eaac7753d\");",
+							"    pm.expect(jsonData.amount).to.eql(8);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/transaction/af9b55b5-3399-4686-8acc-b19302cf7a78",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"transaction",
+						"af9b55b5-3399-4686-8acc-b19302cf7a78"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch transaction for another account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "04dd748e-6d94-440b-bac4-6b517ecacf91",
+						"exec": [
+							"pm.test(\"Transaction details are correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.account_id).to.eql(\"fde26866-afd2-4fff-a969-b213fc92f639\");",
+							"    pm.expect(jsonData.amount).to.eql(10);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/transaction/38b0b32f-fff6-417f-be89-d5d3a33e615b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"transaction",
+						"38b0b32f-fff6-417f-be89-d5d3a33e615b"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "db30052d-16eb-411b-9547-f09a29793fe9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "91a91af4-93cb-481d-979d-6f49556026a8",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

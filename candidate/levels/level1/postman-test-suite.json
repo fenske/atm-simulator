@@ -1,0 +1,247 @@
+{
+	"info": {
+		"_postman_id": "a5e91150-b6ae-4657-99e4-78ea19f46aa9",
+		"name": "ATM Simulator With Handling Retries",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Submit amount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9910004c-5392-4061-974c-9f93de9e1dc2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Transaction-Id",
+						"value": "d23bd187-a8ca-464b-87d7-120a89553644",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"account_id\": \"41878786-445f-439e-93e5-bc2eaac7753d\",\n\t\"amount\" : 7\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/amount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"amount"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit amount retry",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9910004c-5392-4061-974c-9f93de9e1dc2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Transaction-Id",
+						"value": "d23bd187-a8ca-464b-87d7-120a89553644",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"account_id\": \"41878786-445f-439e-93e5-bc2eaac7753d\",\n\t\"amount\" : 7\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/amount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"amount"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch balance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "04dd748e-6d94-440b-bac4-6b517ecacf91",
+						"exec": [
+							"pm.test(\"Balance is correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.balance).to.eql(7);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/balance/41878786-445f-439e-93e5-bc2eaac7753d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"balance",
+						"41878786-445f-439e-93e5-bc2eaac7753d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit amount for another account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9910004c-5392-4061-974c-9f93de9e1dc2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Transaction-Id",
+						"type": "text",
+						"value": "ec51f035-c44e-4a4e-9dfc-bdff3e0d423e"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"account_id\": \"fde26866-afd2-4fff-a969-b213fc92f639\",\n\t\"amount\" : 10\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/amount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"amount"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch balance for another account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "04dd748e-6d94-440b-bac4-6b517ecacf91",
+						"exec": [
+							"pm.test(\"Balance is correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.balance).to.eql(10);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/balance/fde26866-afd2-4fff-a969-b213fc92f639",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"balance",
+						"fde26866-afd2-4fff-a969-b213fc92f639"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
